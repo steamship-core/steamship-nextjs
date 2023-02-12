@@ -4,6 +4,8 @@ import getSteamshipPackage, { GetSteamshipPackageProps } from './getSteamshipPac
 export {
   getSteamshipClient,
   getSteamshipPackage,
+}
+export type {
   GetSteamshipPackageProps,
   GetSteamshipClientProps
 }
