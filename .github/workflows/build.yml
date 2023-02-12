@@ -1,0 +1,27 @@
+name: Just Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-n-publish:
+    name: Just Build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+      - name: Check package version
+        uses: technote-space/package-version-check-action@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm install
+      # - run: npm run test:unit
+      - run: npm run build
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          access: public
+          dry-run: true
+          token: ${{ secrets.NPM_TOKEN }}
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"

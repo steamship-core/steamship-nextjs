@@ -1,0 +1,11 @@
+.idea/*
+.nyc_output
+build
+node_modules
+src/**.js
+coverage
+*.log
+package-lock.json
+test-remote.sh
+test-local.sh
+.DS_Store
