@@ -21,9 +21,14 @@ export interface GetSteamshipPackageProps extends GetSteamshipClientProps {
  * @param props
  */
 export default async function getSteamshipPackage(props: GetSteamshipPackageProps) {
-  const { pkg, version } = props;
+  let { pkg, version } = props;
+
   if ((!pkg) || (typeof pkg == "undefined")) {
-    throw new Error('Missing Steamship `package` in props. This unique handle ([a-z0-9-]) identifies the API you wish to invoke.')
+    pkg = process.env.STEAMSHIP_PACKAGE_HANDLE as string;
+  }
+
+  if ((!pkg) || (typeof pkg == "undefined")) {
+    throw new Error('Missing Steamship `pkg` in props. This unique handle ([a-z0-9-]) identifies the API you wish to invoke. Please provide to `getSteamshipPackage` or set the `STEAMSHIP_PACKAGE_HANDLE` environment variable.')
   }
 
   const client = getSteamshipClient(props)
